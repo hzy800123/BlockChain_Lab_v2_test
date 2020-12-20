@@ -32,7 +32,9 @@ public final class MyContract implements ContractInterface {
         ARG_NUM_WRONG("Incorrect number of arguments. (Expecting %d)"),
         ACCOUNT_NOT_EXISTING("Account '%s' does not exist."),
         NO_ENOUGH_BALANCE("There is no enough balance to transfer in account '%s'."),
-        BALANCE_INVALID("Account balance is invalid. ('%s': %s)");
+        BALANCE_INVALID("Account balance is invalid. ('%s': %s)"),
+
+        RECHARGE_AMOUNT_INVALID("Re-charge Amount '%s' is invalid.");
     
         private String tmpl;
     
@@ -116,6 +118,7 @@ public final class MyContract implements ContractInterface {
         stub.putStringState(keyTo, String.valueOf(intValueB));
     }
 
+
     /**
      * Transfer Amount
      * @param ctx context
@@ -127,7 +130,12 @@ public final class MyContract implements ContractInterface {
         int intValue = Integer.parseInt(value);
         int intValueCharge = Integer.parseInt(valueCharge);
 
+        if (intValueCharge <= 0) {
+            String errorMessage = String.format(Message.RECHARGE_AMOUNT_INVALID.template(), valueCharge);
+            throw new ChaincodeException(errorMessage);
+        }
+
         intValue = intValue + intValueCharge;
         stub.putStringState(key, String.valueOf(intValue));
-    }
+    }    
 }

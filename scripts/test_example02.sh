@@ -70,11 +70,11 @@ else
     -c '{"Function":"Transfer","Args":["a","b","10"]}'
 fi
 set +x
-# sleep 5
+sleep 5
 
 echo '######## - (ORG2) invoke chaincode - ########'
-set -x
 setupPeerENV2
+set -x
 if [[ "$CORE_PEER_TLS_ENABLED" == "true" ]]; then
     peer chaincode invoke \
     -o ${ORDERER_ADDRESS} --ordererTLSHostnameOverride orderer.example.com --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA \
@@ -101,4 +101,55 @@ setupPeerENV2
 set -x
 peer chaincode query -C $CHANNEL_NAME -n $CC_NAME -c '{"Function":"Query", "Args":["b"]}'
 set +x
+
+
+echo '######## - (ORG1) invoke chaincode - ########'
+setupPeerENV1
+set -x
+if [[ "$CORE_PEER_TLS_ENABLED" == "true" ]]; then
+    peer chaincode invoke \
+    -o ${ORDERER_ADDRESS} --ordererTLSHostnameOverride orderer.example.com --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA \
+    $CC_ENDORSERS \
+    -C $CHANNEL_NAME -n ${CC_NAME}  \
+    -c '{"Function":"Recharge","Args":["a","-1"]}'
+else
+    peer chaincode invoke -o ${ORDERER_ADDRESS} -C $CHANNEL_NAME -n ${CC_NAME}  \
+    --peerAddresses $PEER0_ORG1_ADDRESS \
+    $CC_ENDORSERS \
+    -c '{"Function":"Recharge","Args":["a","-1"]}'
+fi
+set +x
+
+
+echo '######## - (ORG2) invoke chaincode - ########'
+setupPeerENV2
+set -x
+if [[ "$CORE_PEER_TLS_ENABLED" == "true" ]]; then
+    peer chaincode invoke \
+    -o ${ORDERER_ADDRESS} --ordererTLSHostnameOverride orderer.example.com --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA \
+    $CC_ENDORSERS \
+    -C $CHANNEL_NAME -n ${CC_NAME}  \
+    -c '{"Function":"Recharge","Args":["b","1"]}'
+else
+    peer chaincode invoke -o ${ORDERER_ADDRESS} -C $CHANNEL_NAME -n ${CC_NAME}  \
+    --peerAddresses $PEER0_ORG1_ADDRESS \
+    $CC_ENDORSERS \
+    -c '{"Function":"Recharge","Args":["b","1"]}'
+fi
+set +x
+sleep 5
+
+
+echo '######## - (ORG1) query chaincode - ########'
+setupPeerENV1
+set -x
+peer chaincode query -C $CHANNEL_NAME -n $CC_NAME -c '{"Function":"Query", "Args":["a"]}'
+set +x
+
+echo '######## - (ORG2) query chaincode - ########'
+setupPeerENV2
+set -x
+peer chaincode query -C $CHANNEL_NAME -n $CC_NAME -c '{"Function":"Query", "Args":["b"]}'
+set +x
+
 echo '############# END ###############'

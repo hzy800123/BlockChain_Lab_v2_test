@@ -129,21 +129,12 @@ public class MyContractTest {
             Context ctx = mock(Context.class);
             ChaincodeStub stub = mock(ChaincodeStub.class);
 
-//            when(ctx.getStub()).thenReturn(stub);
-//            contract.init(ctx, "A", "101", "B", "200");
-
             when(ctx.getStub()).thenReturn(stub);
+            when(stub.getStringState("A")).thenReturn("100");
+
+            contract.recharge(ctx, "A", "1");
             when(stub.getStringState("A")).thenReturn("101");
-//            when(stub.getStringState("B")).thenReturn("102");
-
-//            Throwable thrown = catchThrowable(() -> {
-//                contract.recharge(ctx, "A", "25");
-//            });
-//
-//            assertThat(thrown).isNull();
-            contract.recharge(ctx, "A", "25");
-            assertThat(contract.query(ctx, "A")).isEqualTo("126");
+            assertThat(contract.query(ctx, "A")).isEqualTo("101");
         }
-
     }
 }
