@@ -1,5 +1,7 @@
 ## Fabric 2.0 Lab Environment
 
+## BlockChain_Lab_v2_test
+
 ### 0. Prepare
 
 ```bash
@@ -156,16 +158,16 @@ npm -v
 
 ```bash
 # deploy example01(java version) on v1.0
-. scripts/deploy_chaincode.sh java ${PWD}/chaincode/chaincode_example01/java mycc_java
+. scripts/deploy_chaincode.sh java ${PWD}/chaincode/chaincode_example01/java mycc_java01
 
 # access example01(java version) on v1.0
-. scripts/test_example01.sh mycc_java
+. scripts/test_example01.sh mycc_java01
 
 # upgrade example01(java version) on v1.1
-. scripts/deploy_chaincode.sh java ${PWD}/chaincode/chaincode_example01/java mycc_java v1.1 2
+. scripts/deploy_chaincode.sh java ${PWD}/chaincode/chaincode_example01/java mycc_java01 v1.1 2
 
 # access example01(java version) on v1.1
-. scripts/test_example01.sh mycc_java
+. scripts/test_example01.sh mycc_java01
 ```
 - Deploy & Access – example02
 ```bash
@@ -234,5 +236,3 @@ java -classpath ./target/example02-1.0-SNAPSHOT-jar-with-dependencies.jar exampl
 ```
 
 
-
-# BlockChain_Lab_v2_test
