@@ -15,17 +15,17 @@ import java.io.File;
 import java.nio.file.Paths;
 import java.util.Properties;
 
-public class EnrollAdmin {
+public class EnrollAdminOrg2 {
 
 	static {
 		System.setProperty("org.hyperledger.fabric.sdk.service_discovery.as_localhost", "true");
 	}
 
-	private static final String ORGNAME_ORG1 = "Org1";
-	private static final String ADMINNAME_ORG1 = "admin";
-	private static final String ADMINPWD_ORG1 = "adminpw";
-	private static final String CA_CERT_ORG1 = "profiles/" + ORGNAME_ORG1 + "/tls/" + "ca.org1.example.com-cert.pem";
-	private static final String MSPID_ORG1 = "Org1MSP";
+	private static final String ORGNAME_ORG2 = "Org2";
+	private static final String ADMINNAME_ORG2 = "admin";
+	private static final String ADMINPWD_ORG2 = "adminpw";
+	private static final String CA_CERT_ORG2 = "profiles/" + ORGNAME_ORG2 + "/tls/" + "ca.org2.example.com-cert.pem";
+	private static final String MSPID_ORG2 = "Org2MSP";
 
 	private static void doEnroll(String tlsCert, String orgName, String orgMSP, String adminName, String adminSecret) throws Exception {
 		//Load Connection Profile
@@ -55,10 +55,10 @@ public class EnrollAdmin {
 		Identity user = Identities.newX509Identity(orgMSP, enrollment);
 		wallet.put(adminName, user);
 		System.out.println("orgName - " + orgName + " , " + "adminName - " + adminName);
-		System.out.println("Successfully enrolled user \"admin@"+ orgName + "\" and imported into the wallet"  + "\n");
+		System.out.println("Successfully enrolled user \"admin@"+ orgName + "\" and imported into the wallet" + "\n");
 	}
 
 	public static void main(String[] args) throws Exception {
-		doEnroll(CA_CERT_ORG1, ORGNAME_ORG1, MSPID_ORG1, ADMINNAME_ORG1, ADMINPWD_ORG1);
+		doEnroll(CA_CERT_ORG2, ORGNAME_ORG2, MSPID_ORG2, ADMINNAME_ORG2, ADMINPWD_ORG2);
 	}
 }

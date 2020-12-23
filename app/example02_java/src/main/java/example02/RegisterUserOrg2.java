@@ -12,22 +12,20 @@ import org.hyperledger.fabric_ca.sdk.RegistrationRequest;
 import java.io.File;
 import java.nio.file.Paths;
 import java.security.PrivateKey;
-import java.security.cert.X509Certificate;
 import java.util.Properties;
-import java.util.Set;
 
-public class RegisterUser {
+public class RegisterUserOrg2 {
     static {
         System.setProperty("org.hyperledger.fabric.sdk.service_discovery.as_localhost", "true");
     }
 
-    private static final String ORGNAME_ORG1 = "Org1";
-    private static final String CA_CERT_ORG1 = "profiles/" + ORGNAME_ORG1 + "/tls/" + "ca.org1.example.com-cert.pem";
-    //private static final String CA_URL_ORG1 = "http://localhost:7054";
-    private static final String MSPID_ORG1 = "Org1MSP";
-    private static final String ADMINNAME_ORG1 = "admin";
-    private static final String USERNAME_ORG1 = "user01";
-    private static final String USERPWD_ORG1 = "user01pw";
+    private static final String ORGNAME_ORG2 = "Org2";
+    private static final String CA_CERT_ORG2 = "profiles/" + ORGNAME_ORG2 + "/tls/" + "ca.org2.example.com-cert.pem";
+    //private static final String CA_URL_ORG2 = "http://localhost:7054";
+    private static final String MSPID_ORG2 = "Org2MSP";
+    private static final String ADMINNAME_ORG2 = "admin";
+    private static final String USERNAME_ORG2 = "user01";
+    private static final String USERPWD_ORG2 = "user01pw";
 
     private static void doRegisterUser(String tlsCert, String orgName, String orgMSP, String adminName, String userName, String userSecret) throws Exception {
         //Load Connection Profile
@@ -83,6 +81,6 @@ public class RegisterUser {
     }
 
     public static void main(String[] args) throws Exception {
-        doRegisterUser(CA_CERT_ORG1, ORGNAME_ORG1, MSPID_ORG1, ADMINNAME_ORG1, USERNAME_ORG1, USERPWD_ORG1);
+        doRegisterUser(CA_CERT_ORG2, ORGNAME_ORG2, MSPID_ORG2, ADMINNAME_ORG2, USERNAME_ORG2, USERPWD_ORG2);
     }
 }

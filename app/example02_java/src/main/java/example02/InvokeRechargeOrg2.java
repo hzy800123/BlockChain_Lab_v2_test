@@ -7,13 +7,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.TimeoutException;
 
-public class InvokeRecharge {
+public class InvokeRechargeOrg2 {
     static {
         System.setProperty("org.hyperledger.fabric.sdk.service_discovery.as_localhost", "true");
     }
 
-    private static final String ORGNAME_ORG1 = "Org1";
-    private static final String USERNAME_ORG1 = "user01";
+    private static final String ORGNAME_ORG2 = "Org2";
+    private static final String USERNAME_ORG2 = "user01";
     private static final String CHANNEL_NAME = "mychannel";
     private static final String CONTRACT_NAME = "mycc_java02";
 
@@ -49,7 +49,7 @@ public class InvokeRecharge {
 
     public static void main(String[] args) {
         try {
-            doRecharge(ORGNAME_ORG1, USERNAME_ORG1, "Recharge", "a", "5");
+            doRecharge(ORGNAME_ORG2, USERNAME_ORG2, "Recharge", "a", "5");
         } catch (IOException | ContractException | TimeoutException | InterruptedException e) {
             e.printStackTrace();
         }

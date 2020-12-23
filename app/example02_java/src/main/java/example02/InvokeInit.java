@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.TimeoutException;
 
-public class InvokeRecharge {
+public class InvokeInit {
     static {
         System.setProperty("org.hyperledger.fabric.sdk.service_discovery.as_localhost", "true");
     }
@@ -17,7 +17,8 @@ public class InvokeRecharge {
     private static final String CHANNEL_NAME = "mychannel";
     private static final String CONTRACT_NAME = "mycc_java02";
 
-    private static void doRecharge(String orgName, String userName, String functionName, String key, String rechargeAmount) throws IOException, ContractException, TimeoutException, InterruptedException {
+    private static void doInit(String orgName, String userName, String functionName, String keyA, String valueA, String keyB, String valueB)
+            throws IOException, ContractException, TimeoutException, InterruptedException {
         //get user identity from wallet.
         Path walletPath = Paths.get("wallet", orgName);
         Wallet wallet = Wallets.newFileSystemWallet(walletPath);
@@ -40,16 +41,16 @@ public class InvokeRecharge {
             Network network = gateway.getNetwork(CHANNEL_NAME);
             Contract contract = network.getContract(CONTRACT_NAME);
 
-            byte[] result = contract.submitTransaction(functionName, key, rechargeAmount);
+            byte[] result = contract.submitTransaction(functionName, keyA, valueA, keyB, valueB);
             System.out.println(new String(result));
             System.out.println("orgName - " + orgName + " , " + "userName - " + userName);
-            System.out.println("Recharge " + key + " with amount: " + rechargeAmount + "\n");
+            System.out.println("Init - " + keyA + " : " + valueA + " , " + keyB + " : " + valueB + "\n");
         }
     }
 
     public static void main(String[] args) {
         try {
-            doRecharge(ORGNAME_ORG1, USERNAME_ORG1, "Recharge", "a", "5");
+            doInit(ORGNAME_ORG1, USERNAME_ORG1, "Init", "a", "100", "b", "200");
         } catch (IOException | ContractException | TimeoutException | InterruptedException e) {
             e.printStackTrace();
         }
