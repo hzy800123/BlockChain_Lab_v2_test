@@ -1,4 +1,4 @@
-package example02;
+package example02.MyccJava01;
 
 import org.hyperledger.fabric.gateway.*;
 
@@ -7,17 +7,18 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.TimeoutException;
 
-public class InvokeRechargeOrg2 {
+public class InvokeSetValue {
     static {
         System.setProperty("org.hyperledger.fabric.sdk.service_discovery.as_localhost", "true");
     }
 
-    private static final String ORGNAME_ORG2 = "Org2";
-    private static final String USERNAME_ORG2 = "user01";
+    private static final String ORGNAME_ORG1 = "Org1";
+    private static final String USERNAME_ORG1 = "user01";
     private static final String CHANNEL_NAME = "mychannel";
-    private static final String CONTRACT_NAME = "mycc_java02";
+    private static final String CONTRACT_NAME = "mycc_java01";
 
-    private static void doRecharge(String orgName, String userName, String functionName, String key, String rechargeAmount) throws IOException, ContractException, TimeoutException, InterruptedException {
+    private static void doSetValue(String orgName, String userName, String functionName, String key, String value)
+            throws IOException, ContractException, TimeoutException, InterruptedException {
         //get user identity from wallet.
         Path walletPath = Paths.get("wallet", orgName);
         Wallet wallet = Wallets.newFileSystemWallet(walletPath);
@@ -40,16 +41,16 @@ public class InvokeRechargeOrg2 {
             Network network = gateway.getNetwork(CHANNEL_NAME);
             Contract contract = network.getContract(CONTRACT_NAME);
 
-            byte[] result = contract.submitTransaction(functionName, key, rechargeAmount);
+            byte[] result = contract.submitTransaction(functionName, key, value);
             System.out.println(new String(result));
-            System.out.println("orgName - " + orgName + " , " + "userName - " + userName);
-            System.out.println("Recharge " + key + " with amount: " + rechargeAmount + "\n");
+            System.out.println("orgName - " + orgName + " , " + "userName - " + userName + " , " + "CONTRACT_NAME - " + CONTRACT_NAME);
+            System.out.println("SetValue - " + key + " : " + value + "\n");
         }
     }
 
     public static void main(String[] args) {
         try {
-            doRecharge(ORGNAME_ORG2, USERNAME_ORG2, "Recharge", "a", "5");
+            doSetValue(ORGNAME_ORG1, USERNAME_ORG1, "SetValue", "a", "55");
         } catch (IOException | ContractException | TimeoutException | InterruptedException e) {
             e.printStackTrace();
         }

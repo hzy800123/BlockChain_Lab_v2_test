@@ -16,7 +16,7 @@ import java.security.cert.X509Certificate;
 import java.util.Properties;
 import java.util.Set;
 
-public class RegisterUser {
+public class RegisterUserOrg1 {
     static {
         System.setProperty("org.hyperledger.fabric.sdk.service_discovery.as_localhost", "true");
     }

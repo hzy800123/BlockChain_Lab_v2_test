@@ -1,4 +1,4 @@
-package example02;
+package example02.MyccJava02;
 
 import org.hyperledger.fabric.gateway.*;
 
@@ -7,13 +7,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.TimeoutException;
 
-public class InvokeTransfer {
+public class InvokeTransferOrg2 {
     static {
         System.setProperty("org.hyperledger.fabric.sdk.service_discovery.as_localhost", "true");
     }
 
-    private static final String ORGNAME_ORG1 = "Org1";
-    private static final String USERNAME_ORG1 = "user01";
+    private static final String ORGNAME_ORG2 = "Org2";
+    private static final String USERNAME_ORG2 = "user01";
     private static final String CHANNEL_NAME = "mychannel";
     private static final String CONTRACT_NAME = "mycc_java02";
 
@@ -49,7 +49,7 @@ public class InvokeTransfer {
 
     public static void main(String[] args) {
         try {
-            doTransfer(ORGNAME_ORG1, USERNAME_ORG1, "Transfer", "a", "b", "15");
+            doTransfer(ORGNAME_ORG2, USERNAME_ORG2, "Transfer", "a", "b", "15");
         } catch (IOException | ContractException | TimeoutException | InterruptedException e) {
             e.printStackTrace();
         }

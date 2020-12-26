@@ -15,7 +15,7 @@ import java.io.File;
 import java.nio.file.Paths;
 import java.util.Properties;
 
-public class EnrollAdmin {
+public class EnrollAdminOrg1 {
 
 	static {
 		System.setProperty("org.hyperledger.fabric.sdk.service_discovery.as_localhost", "true");

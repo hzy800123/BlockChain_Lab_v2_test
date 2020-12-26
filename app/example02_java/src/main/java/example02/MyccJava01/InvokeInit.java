@@ -1,4 +1,4 @@
-package example02;
+package example02.MyccJava01;
 
 import org.hyperledger.fabric.gateway.*;
 
@@ -7,17 +7,18 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.TimeoutException;
 
-public class InvokeTransferOrg2 {
+public class InvokeInit {
     static {
         System.setProperty("org.hyperledger.fabric.sdk.service_discovery.as_localhost", "true");
     }
 
-    private static final String ORGNAME_ORG2 = "Org2";
-    private static final String USERNAME_ORG2 = "user01";
+    private static final String ORGNAME_ORG1 = "Org1";
+    private static final String USERNAME_ORG1 = "user01";
     private static final String CHANNEL_NAME = "mychannel";
-    private static final String CONTRACT_NAME = "mycc_java02";
+    private static final String CONTRACT_NAME = "mycc_java01";
 
-    private static void doTransfer(String orgName, String userName, String functionName, String keyFrom, String keyTo, String transAmount) throws IOException, ContractException, TimeoutException, InterruptedException {
+    private static void doInit(String orgName, String userName, String functionName)
+            throws IOException, ContractException, TimeoutException, InterruptedException {
         //get user identity from wallet.
         Path walletPath = Paths.get("wallet", orgName);
         Wallet wallet = Wallets.newFileSystemWallet(walletPath);
@@ -40,16 +41,16 @@ public class InvokeTransferOrg2 {
             Network network = gateway.getNetwork(CHANNEL_NAME);
             Contract contract = network.getContract(CONTRACT_NAME);
 
-            byte[] result = contract.submitTransaction(functionName, keyFrom, keyTo, transAmount);
+            byte[] result = contract.submitTransaction(functionName);
             System.out.println(new String(result));
-            System.out.println("orgName - " + orgName + " , " + "userName - " + userName);
-            System.out.println("Transfer from " + keyFrom + " to " + keyTo + " with amount: " + transAmount + "\n");
+            System.out.println("orgName - " + orgName + " , " + "userName - " + userName + " , " + "CONTRACT_NAME - " + CONTRACT_NAME);
+            System.out.println("Init" + "\n");
         }
     }
 
     public static void main(String[] args) {
         try {
-            doTransfer(ORGNAME_ORG2, USERNAME_ORG2, "Transfer", "a", "b", "15");
+            doInit(ORGNAME_ORG1, USERNAME_ORG1, "Init");
         } catch (IOException | ContractException | TimeoutException | InterruptedException e) {
             e.printStackTrace();
         }
