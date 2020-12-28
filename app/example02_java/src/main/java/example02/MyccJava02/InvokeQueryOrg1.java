@@ -42,7 +42,7 @@ public class InvokeQueryOrg1 {
             Contract contract = network.getContract(CONTRACT_NAME);
 
             byte[] result = contract.evaluateTransaction(functionName, key);
-            System.out.println("orgName - " + orgName + " , " + "userName - " + userName);
+            System.out.println("orgName - " + orgName + " , " + "userName - " + userName + " , " + "CONTRACT_NAME - " + CONTRACT_NAME);
             System.out.println("Query - " + key + " : " + new String(result) + "\n");
         }
     }

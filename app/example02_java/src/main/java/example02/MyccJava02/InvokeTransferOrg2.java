@@ -42,7 +42,7 @@ public class InvokeTransferOrg2 {
 
             byte[] result = contract.submitTransaction(functionName, keyFrom, keyTo, transAmount);
             System.out.println(new String(result));
-            System.out.println("orgName - " + orgName + " , " + "userName - " + userName);
+            System.out.println("orgName - " + orgName + " , " + "userName - " + userName + " , " + "CONTRACT_NAME - " + CONTRACT_NAME);
             System.out.println("Transfer from " + keyFrom + " to " + keyTo + " with amount: " + transAmount + "\n");
         }
     }

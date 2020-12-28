@@ -42,7 +42,7 @@ public class InvokeRechargeOrg2 {
 
             byte[] result = contract.submitTransaction(functionName, key, rechargeAmount);
             System.out.println(new String(result));
-            System.out.println("orgName - " + orgName + " , " + "userName - " + userName);
+            System.out.println("orgName - " + orgName + " , " + "userName - " + userName + " , " + "CONTRACT_NAME - " + CONTRACT_NAME);
             System.out.println("Recharge " + key + " with amount: " + rechargeAmount + "\n");
         }
     }
